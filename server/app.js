@@ -10,15 +10,21 @@ const app = express();
 //middlewares
 app.use(logger);
 
-// Allow the deployed client and any local origin (any port).
-const allowedOrigins = ['https://fullsnack-client.pages.dev'];
+// Allow the deployed client (incl. Cloudflare Pages preview subdomains)
+// and any local origin (any port).
+const allowedOriginPatterns = [
+  // Production client and its *.pages.dev preview deployments.
+  /^https:\/\/([a-z0-9-]+\.)*fullsnack-client\.pages\.dev$/,
+  // Local development on any port.
+  /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/,
+];
 app.use(cors({
   origin(origin, callback) {
-    // Allow requests with no origin (e.g. curl, same-origin) and local dev.
-    if (!origin || allowedOrigins.includes(origin) || /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+    // Allow requests with no origin (e.g. curl, same-origin requests).
+    if (!origin || allowedOriginPatterns.some((pattern) => pattern.test(origin))) {
       return callback(null, true);
     }
-    return callback(new Error('Not allowed by CORS'));
+    return callback(new Error(`Not allowed by CORS: ${origin}`));
   }
 }))
 
