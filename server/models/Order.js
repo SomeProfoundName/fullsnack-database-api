@@ -27,15 +27,10 @@ class Orders {
 
     static async createOrder(data) {
         const { snack_id, order_date, quantity } = data
-        const [exisitngOrders] = await db.query(`SELECT * FROM orders;`)
-        if(exisitngOrders.length !== 0) {
-            let [response] = await db.query(`INSERT INTO orders (snack_id, order_date, quantity) VALUES (?, ?, ?)`,[ snack_id, order_date, quantity])
-            const id = response.insertId
-            const result = await Orders.getOrderById(parseInt(id))
-            return result;
-        } else {
-            throw new Error('no')
-        }
+        const [response] = await db.query(`INSERT INTO orders (snack_id, order_date, quantity) VALUES (?, ?, ?)`,[ snack_id, order_date, quantity])
+        const id = response.insertId
+        const result = await Orders.getOrderById(parseInt(id))
+        return result;
     }
 }
 module.exports=Orders

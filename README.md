@@ -25,18 +25,12 @@ To use this project locally:
 
 1. Create a instance in MySQL
 2. Set Up your MySQL Database using mysql-setup.txt
-   * Run line 1
-   * Run line 2
-   * Run everything afterwards together.
+
 This project uses Node.js
 
-4. Use `npm init -y` in the terminal project directory.
-5. Install the dependencies:
-  * `npm install express`
-  * `npm install cors`
-  * `npm install mysql2`
-  * `npm install --save-dev nodemon`
-4. Set up the .env
+4. Use `npm install` in the terminal project directory to install the dependencies.
+
+5. Set up the .env
 ```
 PORT = 3000
 HOST = 'localhost'
@@ -45,8 +39,8 @@ PASSWORD = '<your MySQL password>'
 DATABASE = '<your MySQL database name>'
 ```
     
-5. To run the API, use `npm run dev` in the project directory.
-6. To test the API you can use an API tester like postman.
+6. To run the API, use `npm run dev` in the project directory.
+7. To test the API you can use an API tester like postman.
 
 Patches to the Orders database can be made using API testing programmes such as Postman
 

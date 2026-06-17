@@ -9,7 +9,7 @@ const orderRouter = Router()
 
 //define endpints
 orderRouter.get('/', orderController.indexO);
-orderRouter.post('/', orderController.createO)
+orderRouter.post('/', orderController.createO);
 
 
 module.exports=orderRouter
